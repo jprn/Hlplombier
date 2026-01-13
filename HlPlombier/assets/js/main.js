@@ -34,6 +34,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const onScroll = () => {
     const h = document.getElementById('header');
     if (!scrollTopBtn) bindScrollTop();
+
+    // Avoid overlap with identity floating card / reopen chip
+    const floating = document.querySelector('.hero-floating');
+    const reopen = document.querySelector('.hero-reopen');
+    const floatingVisible = floating && floating.style.display !== 'none' && floating.offsetParent !== null;
+    const reopenVisible = reopen && reopen.offsetParent !== null;
+    if (floatingVisible || reopenVisible) {
+      document.documentElement.style.setProperty('--scrolltop-extra-bottom', '96px');
+    } else {
+      document.documentElement.style.setProperty('--scrolltop-extra-bottom', '0px');
+    }
+
     if (window.scrollY > 20) {
       h && h.classList.add('is-scrolled');
       scrollTopBtn && scrollTopBtn.classList.add('is-visible');
