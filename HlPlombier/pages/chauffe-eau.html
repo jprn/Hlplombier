@@ -42,7 +42,7 @@
   </header>
 
   <main>
-    <section class="section">
+    <section class="section" style="position:relative">
       <div class="container">
         <div style="text-align:center;max-width:760px;margin:0 auto 22px">
           <div class="card__text" style="display:inline-block;padding:8px 12px;border-radius:999px;background:#f1f5f9;color:#475569;font-weight:600;margin-bottom:10px">Chauffe‑eau / Cumulus</div>
@@ -55,6 +55,26 @@
           <div class="card"><h3 class="card__title">Entretien</h3><p class="card__text">Détartrage, contrôle sécurité pour prolonger la durée de vie.</p></div>
         </div>
       </div>
+      <div style="display:none;position:absolute;right:32px;top:50%;transform:translateY(-50%);width:340px" class="hero-floating">
+        <div style="background:#fff;border-radius:26px;box-shadow:0 40px 100px rgba(2,6,23,.28);padding:20px">
+          <div style="display:flex;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid #e2e8f0">
+            <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#2563eb,#1d4ed8);display:grid;place-items:center;color:#fff;font-weight:800">HL</div>
+            <div>
+              <p style="margin:0 0 2px;font-weight:700;color:#0f172a">Philippe</p>
+              <p style="margin:0;color:#2563eb;font-weight:600;font-size:14px">Artisan plombier</p>
+            </div>
+          </div>
+          <div style="display:grid;gap:10px;margin:12px 0">
+            <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:#475569"><div style="width:32px;height:32px;border-radius:10px;background:#dcfce7;display:grid;place-items:center;color:#16a34a">✔</div><span>Disponible maintenant</span></div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:#475569"><div style="width:32px;height:32px;border-radius:10px;background:#fef3c7;display:grid;place-items:center;color:#d97706">⏱️</div><span>Intervention rapide</span></div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:#475569"><div style="width:32px;height:32px;border-radius:10px;background:#dbeafe;display:grid;place-items:center;color:#2563eb">🛡️</div><span>Devis gratuit et clair</span></div>
+          </div>
+          <a href="tel:+33745089080" class="btn" style="display:block;text-align:center;background:linear-gradient(90deg,#3b82f6,#2563eb);color:#fff;border-color:#2563eb;box-shadow:0 20px 50px rgba(37,99,235,.35)">Appeler maintenant</a>
+        </div>
+      </div>
+      <style>
+        @media(min-width:1024px){ .hero-floating{display:block} }
+      </style>
     </section>
 
     <!-- Reconnaître une panne de chauffe-eau -->
