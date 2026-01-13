@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const header = document.getElementById('header');
-  const burger = document.getElementById('burger');
-  const nav = document.getElementById('nav');
+  let header = document.getElementById('header');
+  let burger = document.getElementById('burger');
+  let nav = document.getElementById('nav');
   const scrollTopBtn = document.getElementById('scrolltop');
   const yearEl = document.getElementById('year');
   const form = document.getElementById('contact-form');
@@ -12,11 +12,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Sticky header shadow
   const onScroll = () => {
+    const h = document.getElementById('header');
     if (window.scrollY > 20) {
-      header && header.classList.add('is-scrolled');
+      h && h.classList.add('is-scrolled');
       scrollTopBtn && scrollTopBtn.classList.add('is-visible');
     } else {
-      header && header.classList.remove('is-scrolled');
+      h && h.classList.remove('is-scrolled');
       scrollTopBtn && scrollTopBtn.classList.remove('is-visible');
     }
   };
@@ -24,21 +25,25 @@ document.addEventListener('DOMContentLoaded', () => {
   onScroll();
 
   // Mobile menu toggle
-  if (burger && nav) {
-    burger.addEventListener('click', () => {
-      const open = burger.getAttribute('aria-expanded') === 'true';
-      burger.setAttribute('aria-expanded', String(!open));
-      nav.classList.toggle('is-open');
-    });
-
-    // Close menu on link click (mobile)
-    nav.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => {
-        burger.setAttribute('aria-expanded', 'false');
-        nav.classList.remove('is-open');
+  const bindHeader = () => {
+    header = document.getElementById('header');
+    burger = document.getElementById('burger');
+    nav = document.getElementById('nav');
+    if (burger && nav) {
+      burger.addEventListener('click', () => {
+        const open = burger.getAttribute('aria-expanded') === 'true';
+        burger.setAttribute('aria-expanded', String(!open));
+        nav.classList.toggle('is-open');
       });
-    });
-  }
+      nav.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          burger.setAttribute('aria-expanded', 'false');
+          nav.classList.remove('is-open');
+        });
+      });
+    }
+  };
+  bindHeader();
 
   // Scroll to top
   if (scrollTopBtn) {
@@ -94,6 +99,75 @@ document.addEventListener('DOMContentLoaded', () => {
     show(0);
     start();
   }
+
+  // Topbar, Header and Footer includes with link prefix resolution
+  (async () => {
+    try {
+      const inPages = location.pathname.includes('/pages/');
+      const basePrefix = inPages ? '..' : '.';
+      const linkRoot = inPages ? '.' : './pages';
+      // Topbar
+      const tRes = await fetch(`${basePrefix}/partials/topbar.html`, { credentials: 'same-origin' });
+      if (tRes.ok) {
+        const tHtml = await tRes.text();
+        // Replace any existing topbar or insert at very top of body
+        const existingTopbars = Array.from(document.querySelectorAll('.topbar'));
+        if (existingTopbars.length) {
+          existingTopbars.forEach((tb, i) => {
+            if (i === 0) tb.outerHTML = tHtml; else tb.remove();
+          });
+        } else {
+          const wrap = document.createElement('div');
+          wrap.innerHTML = tHtml;
+          document.body.insertBefore(wrap.firstElementChild, document.body.firstChild);
+        }
+      }
+      // Header
+      const hRes = await fetch(`${basePrefix}/partials/header.html`, { credentials: 'same-origin' });
+      if (hRes.ok) {
+        let hHtml = await hRes.text();
+        hHtml = hHtml.replaceAll('@root', linkRoot).replaceAll('@assets', basePrefix);
+        const headers = Array.from(document.querySelectorAll('header'));
+        if (headers.length) {
+          headers.forEach((h, i) => {
+            if (i === 0) h.outerHTML = hHtml; else h.remove();
+          });
+        } else {
+          const wrap = document.createElement('div');
+          wrap.innerHTML = hHtml;
+          document.body.insertBefore(wrap.firstElementChild, document.body.firstElementChild);
+        }
+        // rebind events with new DOM
+        bindHeader();
+        onScroll();
+      }
+      const res = await fetch(`${basePrefix}/partials/footer.html`, { credentials: 'same-origin' });
+      if (!res.ok) return;
+      let html = await res.text();
+      html = html.replaceAll('@root', linkRoot).replaceAll('@assets', basePrefix);
+      // Replace any existing footer, regardless of class
+      const existingFooters = Array.from(document.querySelectorAll('footer'));
+      if (existingFooters.length) {
+        existingFooters.forEach((f, i) => {
+          if (i === 0) {
+            f.outerHTML = html;
+          } else {
+            f.remove();
+          }
+        });
+      } else {
+        // inject before scripts at end of body
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = html;
+        document.body.appendChild(wrapper.firstElementChild);
+      }
+      // reset year text after injection
+      const y = document.getElementById('year');
+      if (y) y.textContent = new Date().getFullYear();
+    } catch (_) {
+      // no-op if partial not found
+    }
+  })();
 
   // Floating hero identification card close + per-page persistence (session, 2 minutes) + reopen chip
   const heroCard = document.querySelector('.hero-floating');
