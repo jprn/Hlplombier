@@ -18,6 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.textContent = '↑';
       document.body.appendChild(btn);
       scrollTopBtn = btn;
+    } else if (scrollTopBtn.parentElement !== document.body) {
+      // Keep it at the top level to avoid clipping/stacking contexts (e.g., inside footer)
+      document.body.appendChild(scrollTopBtn);
     }
     if (scrollTopBtn && !scrollTopBtn.__bound) {
       scrollTopBtn.addEventListener('click', () => {
