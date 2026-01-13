@@ -71,6 +71,7 @@
 
         <div class="grid" style="grid-template-columns:repeat(1,1fr);gap:12px;margin-top:16px">
           <div class="card">
+            <div class="service__icon" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0)"><span class="service__icon-emoji">🚀</span></div>
             <h3 class="card__title">Pourquoi nous appeler ici ?</h3>
             <ul class="card__text">
               <li>Intervention rapide en urgence</li>
@@ -80,6 +81,28 @@
           </div>
         </div>
       </div>
+      <div style="position:fixed;right:24px;bottom:120px;transform:none;width:340px;z-index:60" class="hero-floating">
+        <div style="background:#fff;border-radius:26px;box-shadow:0 40px 100px rgba(2,6,23,.28);padding:20px;position:relative">
+          <button class="hero-close" aria-label="Fermer" title="Fermer" style="position:absolute;top:10px;right:10px;background:#0f172a;color:#fff;border:none;border-radius:999px;width:28px;height:28px;display:grid;place-items:center;box-shadow:0 6px 16px rgba(2,6,23,.25);cursor:pointer">×</button>
+          <div style="display:flex;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid #e2e8f0">
+            <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#2563eb,#1d4ed8);display:grid;place-items:center;color:#fff;font-weight:800">HL</div>
+            <div>
+              <p style="margin:0 0 2px;font-weight:700;color:#0f172a">Philippe</p>
+              <p style="margin:0;color:#2563eb;font-weight:600;font-size:14px">Artisan plombier</p>
+            </div>
+          </div>
+          <div style="display:grid;gap:10px;margin:12px 0">
+            <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:#475569"><div style="width:32px;height:32px;border-radius:10px;background:#dcfce7;display:grid;place-items:center;color:#16a34a">✔</div><span>Disponible maintenant</span></div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:#475569"><div style="width:32px;height:32px;border-radius:10px;background:#fef3c7;display:grid;place-items:center;color:#d97706">⏱️</div><span>Intervention rapide</span></div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:#475569"><div style="width:32px;height:32px;border-radius:10px;background:#dbeafe;display:grid;place-items:center;color:#2563eb">🛡️</div><span>Devis gratuit et clair</span></div>
+          </div>
+          <a href="tel:+33745089080" class="btn" style="display:block;text-align:center;background:linear-gradient(90deg,#3b82f6,#2563eb);color:#fff;border-color:#2563eb;box-shadow:0 20px 50px rgba(37,99,235,.35)">Appeler maintenant</a>
+        </div>
+      </div>
+      <style>
+        .hero-floating{display:none}
+        @media(min-width:1024px){ .hero-floating{display:block} }
+      </style>
     </section>
 
     <section class="section section--alt">
@@ -98,8 +121,8 @@
                 title="Zone d'intervention HL Plomberie Besançon"
               ></iframe>
             </div>
-            <div class="card" style="margin-top:12px;display:flex;gap:12px;align-items:flex-start">
-              <div style="width:44px;height:44px;border-radius:12px;background:#0f172a;color:#fff;display:grid;place-items:center;flex-shrink:0">📍</div>
+            <div class="card" style="margin-top:12px">
+              <div class="service__icon" style="background:linear-gradient(135deg,#e2e8f0,#cbd5e1)"><span class="service__icon-emoji">📍</span></div>
               <div>
                 <div class="card__title">Notre adresse</div>
                 <p class="card__text" style="margin:0">5 Rue Paul Gauguin</p>

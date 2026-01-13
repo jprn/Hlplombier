@@ -52,40 +52,26 @@
 
         <div class="grid" style="grid-template-columns:repeat(1,1fr);gap:12px;margin-bottom:16px">
           <div class="card" style="background:#0f172a;color:#fff">
-            <div style="display:flex;gap:12px;align-items:center">
-              <div style="width:48px;height:48px;border-radius:12px;background:rgba(255,255,255,.08);display:grid;place-items:center">📞</div>
-              <div>
-                <p class="card__text" style="color:#fff;font-weight:700;margin:0">07 45 08 90 80</p>
-                <p class="card__text" style="color:#cbd5e1;margin:4px 0 0">Appel direct • Disponible 24h/24</p>
-              </div>
-            </div>
+            <div class="service__icon" style="background:linear-gradient(135deg,#93c5fd,#60a5fa)"><span class="service__icon-emoji">📞</span></div>
+            <p class="card__text" style="color:#fff;font-weight:700;margin:0">07 45 08 90 80</p>
+            <p class="card__text" style="color:#cbd5e1;margin:4px 0 0">Appel direct • Disponible 24h/24</p>
           </div>
           <div class="card" style="background:#16a34a;color:#fff">
-            <a href="https://wa.me/33745089080" target="_blank" rel="noopener" style="display:flex;gap:12px;align-items:center;text-decoration:none;color:inherit">
-              <div style="width:48px;height:48px;border-radius:12px;background:rgba(255,255,255,.12);display:grid;place-items:center">💬</div>
-              <div>
-                <p class="card__text" style="color:#fff;font-weight:700;margin:0">WhatsApp</p>
-                <p class="card__text" style="color:#e2e8f0;margin:4px 0 0">Envoyez photos et messages</p>
-              </div>
+            <div class="service__icon" style="background:linear-gradient(135deg,#86efac,#34d399)"><span class="service__icon-emoji">💬</span></div>
+            <a href="https://wa.me/33745089080" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">
+              <p class="card__text" style="color:#fff;font-weight:700;margin:0">WhatsApp</p>
+              <p class="card__text" style="color:#e2e8f0;margin:4px 0 0">Envoyez photos et messages</p>
             </a>
           </div>
           <div class="card">
-            <div style="display:flex;gap:12px;align-items:flex-start">
-              <div style="width:48px;height:48px;border-radius:12px;background:#fff;border:1px solid rgba(0,0,0,.08);display:grid;place-items:center">📍</div>
-              <div>
-                <p class="card__text" style="font-weight:700;margin:0">Adresse</p>
-                <p class="card__text" style="margin:4px 0 0">5 Rue Paul Gauguin, 25000 Besançon</p>
-              </div>
-            </div>
+            <div class="service__icon" style="background:linear-gradient(135deg,#e2e8f0,#cbd5e1)"><span class="service__icon-emoji">📍</span></div>
+            <p class="card__text" style="font-weight:700;margin:0">Adresse</p>
+            <p class="card__text" style="margin:4px 0 0">5 Rue Paul Gauguin, 25000 Besançon</p>
           </div>
           <div class="card">
-            <div style="display:flex;gap:12px;align-items:flex-start">
-              <div style="width:48px;height:48px;border-radius:12px;background:#fff;border:1px solid rgba(0,0,0,.08);display:grid;place-items:center">⏰</div>
-              <div>
-                <p class="card__text" style="font-weight:700;margin:0">Disponibilité</p>
-                <p class="card__text" style="margin:4px 0 0">Ouvert 24h/24, 7j/7 • Week‑ends et jours fériés inclus</p>
-              </div>
-            </div>
+            <div class="service__icon" style="background:linear-gradient(135deg,#fef3c7,#fde68a)"><span class="service__icon-emoji">⏰</span></div>
+            <p class="card__text" style="font-weight:700;margin:0">Disponibilité</p>
+            <p class="card__text" style="margin:4px 0 0">Ouvert 24h/24, 7j/7 • Week‑ends et jours fériés inclus</p>
           </div>
         </div>
         <form class="form" id="contact-form">
@@ -104,6 +90,28 @@
           <p class="form__success" id="form-success" hidden>Merci, votre demande a été envoyée.</p>
         </form>
       </div>
+      <div style="position:fixed;right:24px;bottom:120px;transform:none;width:340px;z-index:60" class="hero-floating">
+        <div style="background:#fff;border-radius:26px;box-shadow:0 40px 100px rgba(2,6,23,.28);padding:20px;position:relative">
+          <button class="hero-close" aria-label="Fermer" title="Fermer" style="position:absolute;top:10px;right:10px;background:#0f172a;color:#fff;border:none;border-radius:999px;width:28px;height:28px;display:grid;place-items:center;box-shadow:0 6px 16px rgba(2,6,23,.25);cursor:pointer">×</button>
+          <div style="display:flex;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid #e2e8f0">
+            <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#2563eb,#1d4ed8);display:grid;place-items:center;color:#fff;font-weight:800">HL</div>
+            <div>
+              <p style="margin:0 0 2px;font-weight:700;color:#0f172a">Philippe</p>
+              <p style="margin:0;color:#2563eb;font-weight:600;font-size:14px">Artisan plombier</p>
+            </div>
+          </div>
+          <div style="display:grid;gap:10px;margin:12px 0">
+            <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:#475569"><div style="width:32px;height:32px;border-radius:10px;background:#dcfce7;display:grid;place-items:center;color:#16a34a">✔</div><span>Disponible maintenant</span></div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:#475569"><div style="width:32px;height:32px;border-radius:10px;background:#fef3c7;display:grid;place-items:center;color:#d97706">⏱️</div><span>Intervention rapide</span></div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:#475569"><div style="width:32px;height:32px;border-radius:10px;background:#dbeafe;display:grid;place-items:center;color:#2563eb">🛡️</div><span>Devis gratuit et clair</span></div>
+          </div>
+          <a href="tel:+33745089080" class="btn" style="display:block;text-align:center;background:linear-gradient(90deg,#3b82f6,#2563eb);color:#fff;border-color:#2563eb;box-shadow:0 20px 50px rgba(37,99,235,.35)">Appeler maintenant</a>
+        </div>
+      </div>
+      <style>
+        .hero-floating{display:none}
+        @media(min-width:1024px){ .hero-floating{display:block} }
+      </style>
     </section>
   </main>
 
