@@ -2,10 +2,30 @@ document.addEventListener('DOMContentLoaded', () => {
   let header = document.getElementById('header');
   let burger = document.getElementById('burger');
   let nav = document.getElementById('nav');
-  const scrollTopBtn = document.getElementById('scrolltop');
+  let scrollTopBtn = document.getElementById('scrolltop');
   const yearEl = document.getElementById('year');
   const form = document.getElementById('contact-form');
   const formSuccess = document.getElementById('form-success');
+
+  const bindScrollTop = () => {
+    scrollTopBtn = document.getElementById('scrolltop');
+    if (!scrollTopBtn) {
+      const btn = document.createElement('button');
+      btn.className = 'scrolltop';
+      btn.id = 'scrolltop';
+      btn.setAttribute('aria-label', 'Remonter');
+      btn.type = 'button';
+      btn.textContent = '↑';
+      document.body.appendChild(btn);
+      scrollTopBtn = btn;
+    }
+    if (scrollTopBtn && !scrollTopBtn.__bound) {
+      scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+      scrollTopBtn.__bound = true;
+    }
+  };
 
   // Year in footer
   if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -13,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Sticky header shadow
   const onScroll = () => {
     const h = document.getElementById('header');
+    if (!scrollTopBtn) bindScrollTop();
     if (window.scrollY > 20) {
       h && h.classList.add('is-scrolled');
       scrollTopBtn && scrollTopBtn.classList.add('is-visible');
@@ -21,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
       scrollTopBtn && scrollTopBtn.classList.remove('is-visible');
     }
   };
-  window.addEventListener('scroll', onScroll);
+  window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
   // Mobile menu toggle
@@ -46,11 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
   bindHeader();
 
   // Scroll to top
-  if (scrollTopBtn) {
-    scrollTopBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  }
+  bindScrollTop();
 
   // Contact form (demo)
   if (form) {
@@ -146,6 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // rebind events with new DOM
         bindHeader();
         onScroll();
+        bindScrollTop();
       }
       const res = await fetch(`${basePrefix}/partials/footer.html`, { credentials: 'same-origin' });
       if (!res.ok) return;
@@ -170,6 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // reset year text after injection
       const y = document.getElementById('year');
       if (y) y.textContent = new Date().getFullYear();
+      bindScrollTop();
     } catch (_) {
       // no-op if partial not found
     }
