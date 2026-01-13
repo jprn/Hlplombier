@@ -51,7 +51,11 @@
     <!-- Grille tarifs -->
     <section class="section">
       <div class="container">
-        <div class="grid" style="grid-template-columns:repeat(1,1fr);gap:16px">
+        <style>
+          .tarifs-grid{display:grid;grid-template-columns:1fr;gap:16px}
+          @media(min-width:900px){.tarifs-grid{grid-template-columns:repeat(3,1fr)}}
+        </style>
+        <div class="tarifs-grid">
           <div class="card">
             <h2 class="card__title">Dépannage courant</h2>
             <div class="card__text">
