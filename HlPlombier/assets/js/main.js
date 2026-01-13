@@ -94,4 +94,19 @@ document.addEventListener('DOMContentLoaded', () => {
     show(0);
     start();
   }
+
+  // Floating hero identification card close + persistence (session)
+  const heroCard = document.querySelector('.hero-floating');
+  if (heroCard) {
+    if (sessionStorage.getItem('hideHeroCard') === '1') {
+      heroCard.style.display = 'none';
+    }
+    const closeBtn = heroCard.querySelector('.hero-close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        heroCard.style.display = 'none';
+        sessionStorage.setItem('hideHeroCard', '1');
+      });
+    }
+  }
 });
