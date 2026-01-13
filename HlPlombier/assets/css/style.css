@@ -71,10 +71,11 @@ a{color:inherit;text-decoration:none}
 .topbar__tel{font-weight:900;white-space:nowrap;border:1px solid rgba(0,0,0,.10);background:#fff;padding:8px 12px;border-radius:999px;box-shadow:var(--shadow-lg)}
 
 @media(max-width:520px){
-  .topbar__inner{padding:8px 0}
+  .topbar__inner{padding:8px 0; justify-content:center; position:relative}
+  .topbar__info{justify-content:center; width:100%}
   .topbar__text{display:none}
   .topbar__sep{display:none}
-  .topbar__tel{padding:7px 10px;font-size:13px}
+  .topbar__tel{padding:7px 10px;font-size:13px; position:absolute; right:16px; top:50%; transform:translateY(-50%)}
 }
 
 /* Header */
