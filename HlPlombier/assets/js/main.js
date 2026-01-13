@@ -95,18 +95,79 @@ document.addEventListener('DOMContentLoaded', () => {
     start();
   }
 
-  // Floating hero identification card close + persistence (session)
+  // Floating hero identification card close + per-page persistence (session, 2 minutes) + reopen chip
   const heroCard = document.querySelector('.hero-floating');
   if (heroCard) {
-    if (sessionStorage.getItem('hideHeroCard') === '1') {
+    const hideKey = `hideHeroCard:${location.pathname}`;
+    const mqLg = window.matchMedia('(min-width: 1024px)');
+
+    const ensureReopenChip = () => {
+      if (!mqLg.matches) return removeReopenChip();
+      if (document.querySelector('.hero-reopen')) return; // already exists
+      const chip = document.createElement('button');
+      chip.className = 'hero-reopen';
+      chip.type = 'button';
+      chip.setAttribute('aria-label', 'Réafficher la carte Philippe');
+      chip.style.cssText = [
+        'position:fixed','right:24px','bottom:120px','z-index:61','display:inline-flex','align-items:center','gap:8px',
+        'padding:10px 12px','border-radius:999px','border:1px solid rgba(255,255,255,.25)',
+        'background:#0f172a','color:#fff','box-shadow:0 14px 34px rgba(2,6,23,.3)','cursor:pointer'
+      ].join(';');
+      const dot = document.createElement('span');
+      dot.style.cssText = 'width:26px;height:26px;border-radius:999px;display:inline-grid;place-items:center;background:linear-gradient(135deg,#2563eb,#1d4ed8);font-weight:800;';
+      dot.textContent = 'HL';
+      const label = document.createElement('span');
+      label.textContent = 'Philippe';
+      chip.appendChild(dot);
+      chip.appendChild(label);
+      chip.addEventListener('click', () => {
+        sessionStorage.removeItem(hideKey);
+        heroCard.style.display = 'block';
+        removeReopenChip();
+      });
+      document.body.appendChild(chip);
+    };
+
+    const removeReopenChip = () => {
+      const el = document.querySelector('.hero-reopen');
+      if (el) el.remove();
+    };
+
+    const hiddenAt = Number(sessionStorage.getItem(hideKey) || 0);
+    if (hiddenAt && (Date.now() - hiddenAt) < 120000) { // 2 minutes = 120000 ms
       heroCard.style.display = 'none';
+      ensureReopenChip();
+    } else if (hiddenAt) {
+      sessionStorage.removeItem(hideKey);
+      removeReopenChip();
+    } else {
+      removeReopenChip();
     }
+
     const closeBtn = heroCard.querySelector('.hero-close');
     if (closeBtn) {
       closeBtn.addEventListener('click', () => {
         heroCard.style.display = 'none';
-        sessionStorage.setItem('hideHeroCard', '1');
+        sessionStorage.setItem(hideKey, String(Date.now()));
+        ensureReopenChip();
       });
     }
+
+    mqLg.addEventListener ? mqLg.addEventListener('change', () => {
+      // keep reopen chip visibility in sync with breakpoint
+      const hiddenAtNow = Number(sessionStorage.getItem(hideKey) || 0);
+      if (hiddenAtNow && (Date.now() - hiddenAtNow) < 120000) {
+        if (mqLg.matches) ensureReopenChip(); else removeReopenChip();
+      } else {
+        removeReopenChip();
+      }
+    }) : window.addEventListener('resize', () => {
+      const hiddenAtNow = Number(sessionStorage.getItem(hideKey) || 0);
+      if (hiddenAtNow && (Date.now() - hiddenAtNow) < 120000) {
+        if (window.innerWidth >= 1024) ensureReopenChip(); else removeReopenChip();
+      } else {
+        removeReopenChip();
+      }
+    });
   }
 });
