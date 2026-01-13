@@ -46,6 +46,10 @@ a{color:inherit;text-decoration:none}
 .grid{display:grid;gap:16px}
 .grid--3{grid-template-columns:repeat(1,1fr)}
 @media(min-width:800px){.grid--3{grid-template-columns:repeat(3,1fr)}}
+/* Services grid responsive: 1 -> 2 -> 3 cols */
+.grid--services{grid-template-columns:repeat(1,1fr)}
+@media(min-width:700px){.grid--services{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1024px){.grid--services{grid-template-columns:repeat(3,1fr)}}
 
 /* Topbar */
 .topbar{position:relative;background: linear-gradient(90deg, rgba(245,158,11,.14), rgba(245,158,11,.06));border-bottom:1px solid rgba(245,158,11,.24)}
@@ -85,7 +89,11 @@ a{color:inherit;text-decoration:none}
 .hero__actions{display:flex;gap:10px;flex-wrap:wrap}
 
 /* Cards */
-.card{padding:18px;border:1px solid rgba(0,0,0,.08);background:#fff;color:var(--text);border-radius:var(--radius);box-shadow:var(--shadow-lg)}
+.card{padding:18px;border:1px solid rgba(0,0,0,.08);background:#fff;color:var(--text);border-radius:var(--radius);box-shadow:var(--shadow-lg);transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease}
+.card:hover{transform:translateY(-2px);border-color:transparent;box-shadow:var(--shadow-xl)}
+.service__icon{width:64px;height:64px;border-radius:16px;display:grid;place-items:center;margin-bottom:12px;box-shadow:0 10px 22px rgba(2,6,23,.08);transition:transform .2s ease}
+.card:hover .service__icon{transform:scale(1.08)}
+.service__icon-emoji{font-size:28px;line-height:1}
 .card__title{margin:0 0 8px;font-size:18px}
 .card__text{margin:0 0 12px;color:var(--muted)}
 .link{color:#0b1220}
@@ -103,6 +111,12 @@ a{color:inherit;text-decoration:none}
 .btn--solid{border-color: rgba(245,158,11,.35);background: linear-gradient(135deg, rgba(245,158,11,.95), rgba(251,191,36,.75));color:#0b1220;box-shadow: 0 18px 40px rgba(245,158,11,.18)}
 .btn--solid:hover{background: linear-gradient(135deg, rgba(251,191,36,.95), rgba(245,158,11,.8))}
 .btn--ghost{background: transparent}
+
+/* Service more link with arrow animation */
+.service__more{display:inline-flex;align-items:center;gap:6px;font-weight:700;color:var(--text);border-bottom:1px solid transparent}
+.service__more:hover{color:#b45309;border-bottom-color:#fbbf24}
+.service__more-arrow{display:inline-block;transition:transform .2s ease}
+.service__more:hover .service__more-arrow{transform:translateX(4px)}
 
 /* Features */
 .features{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
