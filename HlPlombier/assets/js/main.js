@@ -58,4 +58,40 @@ document.addEventListener('DOMContentLoaded', () => {
       form.reset();
     });
   }
+
+  // Reviews slider
+  const slider = document.getElementById('reviews-slider');
+  if (slider) {
+    const slides = Array.from(slider.querySelectorAll('.review-slide'));
+    const dots = Array.from(slider.querySelectorAll('.reviews__dot'));
+    const prevBtn = slider.querySelector('.reviews__btn[data-dir="prev"]');
+    const nextBtn = slider.querySelector('.reviews__btn[data-dir="next"]');
+    let index = 0;
+    let timer;
+
+    const show = (i) => {
+      slides.forEach((s, si) => s.classList.toggle('is-active', si === i));
+      dots.forEach((d, di) => d.classList.toggle('is-active', di === i));
+      index = i;
+    };
+
+    const next = () => show((index + 1) % slides.length);
+    const prev = () => show((index - 1 + slides.length) % slides.length);
+
+    const start = () => {
+      stop();
+      timer = setInterval(next, 5000);
+    };
+    const stop = () => timer && clearInterval(timer);
+
+    dots.forEach((d, di) => d.addEventListener('click', () => { show(di); start(); }));
+    prevBtn && prevBtn.addEventListener('click', () => { prev(); start(); });
+    nextBtn && nextBtn.addEventListener('click', () => { next(); start(); });
+
+    slider.addEventListener('mouseenter', stop);
+    slider.addEventListener('mouseleave', start);
+
+    show(0);
+    start();
+  }
 });

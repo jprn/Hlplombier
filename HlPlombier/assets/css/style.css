@@ -141,3 +141,17 @@ input:focus, select:focus, textarea:focus{outline:3px solid rgba(37,99,235,.45);
 /* Scroll to top */
 .scrolltop{position:fixed;right:16px;bottom:16px;width:42px;height:42px;border-radius:50%;border:1px solid rgba(0,0,0,.12);background:rgba(255,255,255,.8);backdrop-filter:blur(8px);display:grid;place-items:center;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .2s ease, box-shadow .15s ease; box-shadow:var(--shadow-lg)}
 .scrolltop.is-visible{opacity:1;pointer-events:auto}
+
+/* Reviews slider */
+.reviews{position:relative}
+.reviews__track{display:grid}
+.review-slide{display:none;padding:18px;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:20px;box-shadow:var(--shadow-lg)}
+.review-slide.is-active{display:block}
+.review__rating{color:#f59e0b;font-weight:800;margin-bottom:8px}
+.review__text{color:var(--muted);margin:0 0 8px}
+.review__author{color:#0f172a;font-weight:600}
+.reviews__nav{display:flex;gap:8px;justify-content:center;margin-top:12px}
+.reviews__btn{border:1px solid rgba(0,0,0,.12);background:#fff;border-radius:12px;padding:8px 10px;cursor:pointer}
+.reviews__dots{display:flex;gap:6px;justify-content:center;margin-top:8px}
+.reviews__dot{width:8px;height:8px;border-radius:999px;background:#e2e8f0;border:1px solid #e5e7eb}
+.reviews__dot.is-active{background:#0ea5e9;border-color:#7dd3fc}
