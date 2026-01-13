@@ -33,12 +33,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // Year in footer
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // Sticky header shadow
-  const onScroll = () => {
-    const h = document.getElementById('header');
+  const getScrollY = () => {
+    return window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+  };
+
+  const updateScrollTopVisibility = () => {
     if (!scrollTopBtn) bindScrollTop();
 
-    // Avoid overlap with identity floating card / reopen chip
     const floating = document.querySelector('.hero-floating');
     const reopen = document.querySelector('.hero-reopen');
     const floatingVisible = floating && floating.style.display !== 'none' && floating.offsetParent !== null;
@@ -49,16 +50,32 @@ document.addEventListener('DOMContentLoaded', () => {
       document.documentElement.style.setProperty('--scrolltop-extra-bottom', '0px');
     }
 
-    if (window.scrollY > 20) {
-      h && h.classList.add('is-scrolled');
+    const y = getScrollY();
+    if (y > 20) {
       scrollTopBtn && scrollTopBtn.classList.add('is-visible');
     } else {
-      h && h.classList.remove('is-scrolled');
       scrollTopBtn && scrollTopBtn.classList.remove('is-visible');
     }
   };
+
+  // Sticky header shadow
+  const onScroll = () => {
+    const h = document.getElementById('header');
+    updateScrollTopVisibility();
+    if (getScrollY() > 20) {
+      h && h.classList.add('is-scrolled');
+    } else {
+      h && h.classList.remove('is-scrolled');
+    }
+  };
   window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('touchmove', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  window.addEventListener('orientationchange', onScroll, { passive: true });
   onScroll();
+
+  const visPoll = setInterval(updateScrollTopVisibility, 250);
+  setTimeout(() => clearInterval(visPoll), 5000);
 
   // Mobile menu toggle
   const bindHeader = () => {
@@ -179,6 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
         bindHeader();
         onScroll();
         bindScrollTop();
+        updateScrollTopVisibility();
       }
       const res = await fetch(`${basePrefix}/partials/footer.html`, { credentials: 'same-origin' });
       if (!res.ok) return;
@@ -204,6 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const y = document.getElementById('year');
       if (y) y.textContent = new Date().getFullYear();
       bindScrollTop();
+      updateScrollTopVisibility();
     } catch (_) {
       // no-op if partial not found
     }
