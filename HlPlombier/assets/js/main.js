@@ -135,7 +135,13 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
           const wrap = document.createElement('div');
           wrap.innerHTML = hHtml;
-          document.body.insertBefore(wrap.firstElementChild, document.body.firstElementChild);
+          const topbar = document.querySelector('.topbar');
+          const headerEl = wrap.firstElementChild;
+          if (topbar && topbar.parentNode) {
+            topbar.parentNode.insertBefore(headerEl, topbar.nextSibling);
+          } else {
+            document.body.insertBefore(headerEl, document.body.firstElementChild);
+          }
         }
         // rebind events with new DOM
         bindHeader();
